@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS - Sistema de Control de Flujo</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="imagenes/logo-removebg-preview.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="brand-container">
+        <img src="imagenes/logo-removebg-preview.png" alt="Nexus Transporte Logo" class="brand-logo">
+    </div>
+
+    <div class="container">
+        <h1 class="main-title">Sistema de Control de Flujo de Viajes</h1>
+        <p class="description-top">Panel logístico automatizado para el monitoreo y gestión de unidades.</p>
+
+        <div class="nav-tabs">
+            <button class="tab-btn active" id="btn-nav-registro" onclick="cambiarPanel('registro')">📄 Registrar Unidad</button>
+            <button class="tab-btn" id="btn-nav-unidades" onclick="cambiarPanel('unidades')">📋 Ver Unidades Registradas</button>
+            <button class="tab-btn" id="btn-nav-choferes" onclick="cambiarPanel('choferes')">👥 Ver Choferes</button>
+        </div>
+
+        <div id="panel-registro" class="panel-content active">
+            <div class="card">
+                <h2 class="form-title" id="titulo-formulario">Registrar Nueva Unidad</h2>
+                
+                <form id="form-bus" onsubmit="event.preventDefault();">
+                    <div class="form-group">
+                        <label for="placa">Placa del Autobús:</label>
+                        <input type="text" id="placa" placeholder="Ej: AA123BB" required maxlength="10">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="linea">Línea de Transporte:</label>
+                        <input type="text" id="linea" placeholder="Ej: Cooperativa UPACA" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="capacidad">Capacidad (Puestos):</label>
+                        <input type="number" id="capacidad" placeholder="Ej: 32" required min="1">
+                    </div>
+
+                    <div class="section-divider">DATOS PASAJEROS Y VIAJE</div>
+
+                    <div class="form-group">
+                        <label for="hora_salida">Hora de Salida:</label>
+                        <input type="time" id="hora_salida" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="num_boleto">Número de Boleto Inicial:</label>
+                        <input type="number" id="num_boleto" placeholder="Ej: 120" required min="0">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="estado_cliente">Estado del Cliente:</label>
+                        <select id="estado_cliente" class="form-select">
+                            <option value="Nuevo">Nuevo</option>
+                            <option value="Fijo">Fijo</option>
+                            <option value="Regular" selected>Regular</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tlf_pasajero">Número de Tlf. Pasajero:</label>
+                        <input type="tel" id="tlf_pasajero" placeholder="Ej: 0412-1234567" required>
+                    </div>
+
+                    <button type="submit" class="btn">Guardar y Ver Registros</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="panel-unidades" class="panel-content">
+            <div class="card table-card">
+                <h3 class="subtitle">Unidades en Sistema</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Placa</th>
+                                <th>Línea</th>
+                                <th>Capacidad</th>
+                                <th>Hora Salida</th>
+                                <th>N° Boleto</th>
+                                <th>Estado</th>
+                                <th>Teléfono Pasajero</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-buses">
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="panel-choferes" class="panel-content">
+            <div class="card">
+                <h3 class="subtitle">Choferes Disponibles</h3>
+                <div class="choferes-grid">
+                    <div class="chofer-card">
+                        <div class="chofer-info">
+                            <h4>Isaac Castro</h4>
+                            <p>📞 Tlf: 0412-8001207</p>
+                        </div>
+
+                        <div class="chofer-perfil-contenedor">
+                            <img src="imagenes/Isaac.jpeg" alt="Foto de Isaac Castro" class="chofer-perfil-img">
+                        </div>
+
+                        <div class="chofer-bus">
+                            <img src="imagenes/busNexus.png" alt="Unidad Isaac">
+                        </div>
+                    </div>
+                    <div class="chofer-card">
+                        <div class="chofer-info">
+                            <h4>Blanca Diaz</h4>
+                            <p>📞 Tlf: 0412-2766153</p>
+                        </div>
+
+                        <div class="chofer-perfil-contenedor">
+                            <img src="imagenes/blanca.jpeg" alt="Foto de Blanca Diaz" class="chofer-perfil-img">
+                        </div>
+
+                        <div class="chofer-bus">
+                            <img src="imagenes/busNew.png" alt="Unidad Blanca">
+                        </div>
+                    </div>
+                    <div class="chofer-card">
+                        <div class="chofer-info">
+                            <h4>Betzabet La Cruz</h4>
+                            <p>📞 Tlf: 0424-8389605</p>
+                        </div>
+
+                        <div class="chofer-perfil-contenedor">
+                            <img src="imagenes/betza.jpeg" alt="Foto de Betzabet La Cruz" class="chofer-perfil-img">
+                        </div>
+
+                        <div class="chofer-bus">
+                            <img src="imagenes/busBetza.jpeg" alt="Unidad Betzabet">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="floating-support-container">
+        <div id="faq-panel" class="faq-box hidden">
+            <h4>💬 Soporte Técnico</h4>
+            <p><strong>¿Problemas con el registro?</strong> Verifica los campos ingresados.</p>
+            <p><strong>¿Campos vacíos?</strong> Recuerda rellenar todos los datos obligatorios.</p>
+        </div>
+        
+        <a href="https://wa.me/584128001207" target="_blank" class="btn-float btn-ws" title="Escríbenos al WhatsApp">
+            <span class="ws-text">WS de nosotros</span>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+        </a>
+
+        <button class="btn-float btn-support" id="btn-support-toggle" title="Centro de Soporte">
+            ❓
+        </button>
+    </div>
+
+    <script src="project.js"></script>
+</body>
+</html>
