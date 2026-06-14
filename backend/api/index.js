@@ -144,7 +144,3 @@ process.on('unhandledRejection', (reason, promise) => {
   console.error('💥 Promesa rechazada no manejada:', reason);
 });
 
-// ANCLA DE SEGURIDAD
-setInterval(() => {
-  // Mantiene el proceso despierto
-}, 86400000);
