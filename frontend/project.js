@@ -1,5 +1,10 @@
-// CORRECCIÓN CRUCIAL: Apuntar directamente al endpoint correcto de la API
-const API_URL = 'https://nexus-transporte.onrender.com/api/buses';
+/// CONFIGURACIÓN DINÁMICA DE LAS URLS
+const IS_LOCAL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+
+// Si estás en local, usa el puerto 3000. Si estás en Vercel, usa tu backend de Render definitivo.
+const API_URL = IS_LOCAL 
+    ? 'http://localhost:3000/api/buses' 
+    : 'https://nexus-backend-final.onrender.com/api/buses';
 
 const formBus = document.getElementById('form-bus');
 const tablaBuses = document.getElementById('tabla-buses');
@@ -36,7 +41,8 @@ async function obtenerBuses() {
     if (!tablaBuses) return; 
     
     try {
-        const respuesta = await fetch(API_URL); // Dispara a /api/buses
+        // CORREGIDO: Ahora usa la API_URL dinámica en vez de localhost fijo
+        const respuesta = await fetch(API_URL); 
         if (!respuesta.ok) throw new Error('Error en la respuesta del servidor');
         
         const buses = await respuesta.json();
@@ -81,7 +87,6 @@ async function obtenerBuses() {
     }
 }
 
-
 // 2. GUARDAR O MODIFICAR (POST / PUT)
 if (formBus) {
     formBus.addEventListener('submit', async (e) => {
@@ -101,7 +106,6 @@ if (formBus) {
             let respuesta;
             
             if (editando) {
-                // PUT: Se concatena el ID al final del endpoint /api/buses/:id
                 respuesta = await fetch(`${API_URL}/${idBusAEditar}`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
@@ -112,7 +116,6 @@ if (formBus) {
                 document.querySelector('.btn').innerText = 'Guardar y Ver Registros';
                 document.getElementById('titulo-formulario').innerText = 'Registrar Nueva Unidad';
             } else {
-                // POST: Envía directamente a /api/buses
                 respuesta = await fetch(API_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -125,23 +128,21 @@ if (formBus) {
                 await obtenerBuses();  
                 cambiarPanel('unidades'); 
             } else {
-                // ESTA LÍNEA NUEVA: Te va a decir el error real en la alerta flotante
                 const errorBackend = await respuesta.json();
-                alert('Error real de Supabase: ' + (errorBackend.error || 'Fallo desconocido'));
+                // CORREGIDO: Texto de alerta adaptado a la arquitectura PostgreSQL actual
+                alert('Error de base de datos PostgreSQL: ' + (errorBackend.error || 'Fallo desconocido'));
             }
         } catch (error) {
             console.error('Error crítico al intentar enviar el formulario:', error.message);
-            alert('No se pudo conectar con el servidor backend en Render.');
+            alert('No se pudo establecer conexión con el servidor API Nexus.');
         }
     });
 }
-
 
 // 3. ELIMINAR UN AUTOBÚS (DELETE)
 async function eliminarBus(id) {
     if (confirm('¿Estás seguro de que deseas eliminar esta unidad de transporte?')) {
         try {
-            // DELETE: Se concatena el ID al final del endpoint /api/buses/:id
             const respuesta = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
             if (respuesta.ok) obtenerBuses(); 
         } catch (error) {

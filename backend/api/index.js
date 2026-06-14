@@ -131,9 +131,8 @@ app.delete('/api/buses/:id', async (req, res) => {
 });
 
 // ENCENDER EL SERVIDOR
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`🚀 Servidor Nexus activo y escuchando de forma permanente en el puerto ${PORT}`);
-});
+// BORRA EL app.listen() Y REEMPLÁZALO SOLO CON ESTA LÍNEA:
+module.exports = app;
 
 // ESCUDO CONTRA CAÍDAS SILENCIOSAS
 process.on('uncaughtException', (err) => {
