@@ -1,5 +1,5 @@
 // OBLIGAMOS A QUE APUNTE AL BACKEND DE VERCEL SIEMPRE
-const API_URL = 'https://proyecto-final-nexus-f15g-feujtj636.vercel.app/api/buses';
+const API_URL = 'http://localhost:3000/api/buses';
 
 const formBus = document.getElementById('form-bus');
 const tablaBuses = document.getElementById('tabla-buses');
@@ -37,7 +37,13 @@ async function obtenerBuses() {
     
     try {
         // CORREGIDO: Ahora usa la API_URL dinámica en vez de localhost fijo
-        const respuesta = await fetch(API_URL); 
+        const respuesta = await fetch(API_URL, {
+    method: 'GET',
+    headers: {
+        'Bypass-Tunnel-Reminder': 'true', // 👈 ESTA LÍNEA ROMPE EL BLOQUEO DE UNA
+        'Content-Type': 'application/json'
+    }
+}); 
         if (!respuesta.ok) throw new Error('Error en la respuesta del servidor');
         
         const buses = await respuesta.json();

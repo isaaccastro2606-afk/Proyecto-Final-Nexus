@@ -143,3 +143,7 @@ process.on('unhandledRejection', (reason, promise) => {
   console.error('💥 Promesa rechazada no manejada:', reason);
 });
 
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Servidor corriendo localmente en el puerto ${PORT}`);
+});

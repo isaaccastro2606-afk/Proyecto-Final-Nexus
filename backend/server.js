@@ -14,6 +14,7 @@ app.use(cors({
 app.use(express.json());
 
 // CONFIGURACIÓN DE POSTGRESQL (SUPABASE)
+// CONFIGURACIÓN DE POSTGRESQL (CON RESPALDO PARA LOCAL)
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
