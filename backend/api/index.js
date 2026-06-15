@@ -4,14 +4,13 @@ const { Pool } = require('pg');
 require('dotenv').config();
 
 const app = express();
+app.use(cors({ origin: '*' })); 
+
+app.use(express.json());
 // Configuración dinámica del puerto para evitar choques en local o la nube
 const PORT = process.env.PORT || 3000;
 
 // MIDDLEWARES
-app.use(cors({
-    origin: '*' 
-}));
-app.use(express.json());
 
 // CONFIGURACIÓN DE POSTGRESQL (SUPABASE)
 const pool = new Pool({

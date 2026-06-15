@@ -1,10 +1,5 @@
-/// CONFIGURACIÓN DINÁMICA DE LAS URLS
-const IS_LOCAL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-
-// Si estás en local, usa el puerto 3000. Si estás en Vercel, usa tu backend de Render definitivo.
-const API_URL = IS_LOCAL 
-    ? 'http://localhost:3000/api/buses' 
-    : 'https://nexus-backend-final.onrender.com/api/buses';
+// OBLIGAMOS A QUE APUNTE AL BACKEND DE VERCEL SIEMPRE
+const API_URL = 'https://proyecto-final-nexus-f15g-feujtj636.vercel.app/api/buses';
 
 const formBus = document.getElementById('form-bus');
 const tablaBuses = document.getElementById('tabla-buses');
