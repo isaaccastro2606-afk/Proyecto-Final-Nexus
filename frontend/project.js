@@ -1,5 +1,5 @@
 // OBLIGAMOS A QUE APUNTE AL BACKEND DE VERCEL SIEMPRE
-const API_URL = 'http://localhost:3000/api/buses';
+const API_URL = 'https://proyecto-final-nexus-production.up.railway.app/api/buses';
 
 const formBus = document.getElementById('form-bus');
 const tablaBuses = document.getElementById('tabla-buses');
